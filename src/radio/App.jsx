@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
 import { Badge } from '@/components/ui/badge.jsx'
 import { Button } from '@/components/ui/button.jsx'
-import { ExternalLink, Radio, Calendar, Trophy, Users } from 'lucide-react'
+import { ExternalLink, Radio, Calendar, Trophy, Users, Music, Mic, Star } from 'lucide-react'
 import './App.css'
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
         description: "Contemporary Christian music superstars MercyMe bring their powerful live performance to Boise. Known for hits like 'I Can Only Imagine' and 'Even If,' this concert promises an unforgettable evening of worship and music.",
         date: "November 2, 2025",
         link: "https://ktsy.org/events-community/upcoming-events/",
-        image: null,
+        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format",
         priority: "high"
       },
       {
@@ -34,7 +34,7 @@ function App() {
         description: "Tune in weekdays for your chance to win $500 cash! Listen for the cue to call and be caller 10 to win. No purchase necessary, must be 18 or older to participate.",
         date: "Ongoing",
         link: "https://wild101fm.com/contests/",
-        image: null,
+        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format",
         priority: "high"
       },
       {
@@ -46,7 +46,7 @@ function App() {
         description: "Comedian Bert Kreischer brings his hilarious stand-up comedy to Boise. Known for his storytelling and high-energy performances, this show is part of his national tour.",
         date: "October 4, 2025",
         link: "https://www.kboi.com/",
-        image: null,
+        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format",
         priority: "medium"
       },
       {
@@ -58,7 +58,7 @@ function App() {
         description: "Multiple chances to win cash prizes throughout the week. Listen for details and your chance to win big with Boise's country music leader.",
         date: "Weekly",
         link: "https://1043wowcountry.com/",
-        image: null,
+        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format",
         priority: "medium"
       },
       {
@@ -70,7 +70,7 @@ function App() {
         description: "Free screening of The Wedding Singer at Terrace Drive-In to celebrate Adam Sandler's upcoming Ford Idaho Center show. Win tickets to his live performance!",
         date: "October 5, 2025",
         link: "https://liteonline.com/",
-        image: null,
+        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format",
         priority: "high"
       },
       {
@@ -82,7 +82,7 @@ function App() {
         description: "Join Jack FM at Meridian's annual Oktoberfest celebration featuring German food, beer, music, and family-friendly activities in downtown Meridian.",
         date: "October 4, 2025",
         link: "https://www.jackboise.com/",
-        image: null,
+        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format",
         priority: "medium"
       },
       {
@@ -94,7 +94,7 @@ function App() {
         description: "$20,000 in production gear giveaway for local churches. Help your church win professional audio and video equipment to enhance worship services.",
         date: "Ends October 31, 2025",
         link: "https://ktsy.org/",
-        image: null,
+        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format",
         priority: "high"
       },
       {
@@ -106,7 +106,7 @@ function App() {
         description: "Halloween party featuring live DJs, costume contests, and prizes. Boise's hottest Halloween event with music from today's biggest hip hop and pop artists.",
         date: "October 30, 2025",
         link: "https://wild101fm.com/",
-        image: null,
+        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format",
         priority: "medium"
       },
       {
@@ -118,7 +118,7 @@ function App() {
         description: "Listen daily for your chance to win $5,000 cash. Multiple chances to win throughout the day during Kasper & Chris and other popular shows.",
         date: "Daily",
         link: "https://www.kboi.com/",
-        image: null,
+        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format",
         priority: "high"
       },
       {
@@ -130,7 +130,7 @@ function App() {
         description: "Your source for local events, community meetings, and public affairs programming. Featuring in-depth coverage of Idaho politics and local issues.",
         date: "Daily",
         link: "https://www.boisestatepublicradio.org/",
-        image: null,
+        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format",
         priority: "low"
       },
       {
@@ -142,7 +142,7 @@ function App() {
         description: "Play Jack Words for your chance to win $500! Listen for the daily word and text it in for your chance to win cash prizes.",
         date: "Ongoing",
         link: "https://www.jackboise.com/",
-        image: null,
+        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format",
         priority: "medium"
       },
       {
@@ -154,7 +154,7 @@ function App() {
         description: "Win $1000 while you're at work! Listen for the cue to call during work hours for your chance to win big with Lite FM.",
         date: "Weekdays",
         link: "https://liteonline.com/",
-        image: null,
+        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format",
         priority: "high"
       }
     ]
