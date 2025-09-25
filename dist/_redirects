@@ -1,0 +1,4 @@
+# Netlify redirects for React Router
+/broadcasting /index.html 200
+/radio /index.html 200
+/* /index.html 200
