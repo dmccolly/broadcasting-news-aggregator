@@ -118,3 +118,35 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Make Radio Hub transparent */
+body {
+  background: transparent !important;
+}
+
+#root {
+  background: transparent !important;
+}
+
+.min-h-screen {
+  background: transparent !important;
+}
+
+.bg-gradient-to-br {
+  background: transparent !important;
+}
+
+.bg-white {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 1px solid rgba(0,0,0,0.1) !important;
+}
+
+.rounded-2xl {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.shadow-lg {
+  box-shadow: none !important;
+}

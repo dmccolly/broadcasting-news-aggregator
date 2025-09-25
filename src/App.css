@@ -4,7 +4,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  background: transparent;
   min-height: 100vh;
 }
 
@@ -15,11 +15,11 @@
 }
 
 .header-content {
-  background: white;
+  background: transparent;
   padding: 30px;
   border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: none;
+  border: none;
 }
 
 .header-icon {
@@ -194,9 +194,9 @@
   margin-top: 40px;
   text-align: center;
   padding: 24px;
-  background: white;
+  background: transparent;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: none;
 }
 
 .update-info {
