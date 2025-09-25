@@ -221,6 +221,25 @@ class BroadcastingNewsAggregator {
 
   async aggregateNews() {
     console.log('Starting news aggregation...');
+    
+    try {
+      // Fetch from backend API
+      const response = await fetch('/api/news');
+      const data = await response.json();
+      
+      if (data.success && data.articles) {
+        console.log(`Fetched ${data.articles.length} articles from backend`);
+        return data.articles;
+      } else {
+        console.error('Backend API error:', data.error);
+        return [];
+      }
+    } catch (error) {
+      console.error('Error fetching from backend:', error);
+      return [];
+    }
+    
+    /* RSS fetching code - requires backend proxy for CORS
     const allArticles = [];
     
     for (const [sourceId, sourceConfig] of Object.entries(this.sources)) {
@@ -254,6 +273,7 @@ class BroadcastingNewsAggregator {
     
     console.log(`Aggregated ${uniqueArticles.length} unique broadcasting articles`);
     return uniqueArticles.slice(0, 15); // Return top 15 articles
+    */
   }
 
   removeDuplicates(articles) {
