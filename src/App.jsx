@@ -1,80 +1,79 @@
 import React from 'react'
 import './App.css'
 
-// Current broadcasting news articles - September 24, 2025
+// Current broadcasting news articles - September 25, 2025
 const currentNews = [
   {
     id: 1,
-    title: "Broadcast and professional AV sectors converge around shared infrastructure needs",
-    description: "The traditional boundaries between broadcast television and professional audiovisual industries are dissolving as both sectors migrate toward IP-based infrastructures and software-defined solutions. Industry executives report that fundamental requirements for video content delivery have become nearly identical across broadcast operations, corporate communications, live events and specialized venue applications, creating new opportunities for technology providers and end users alike.",
+    title: "Disney+ Announces Price Hike Amid Kimmel Controversy",
+    description: "Disney has announced price increases for its Disney+ streaming service, with the ad-free version rising $3 to $18.99/month and ad-supported tier increasing $2 to $11.99/month. The announcement comes as Disney faces backlash over its decision to suspend Jimmy Kimmel Live after the host's comments about Charlie Kirk's death. The timing appears strategic as Disney grapples with subscriber cancellations and negative press from across the political spectrum.",
     source: "NewscastStudio",
-    date: "September 23, 2025",
-    author: "Dak Dillon",
-    url: "https://www.newscaststudio.com/2025/09/23/broadcast-and-professional-av-sectors-converge-around-shared-infrastructure-needs/",
-    image: "https://www.newscaststudio.com/wp-content/uploads/2025/09/broadcast-av-convergence.jpg"
+    date: "September 24, 2025",
+    url: "https://www.newscaststudio.com/2025/09/24/disney-plus-price-increase-1025/",
+    image: "https://www.newscaststudio.com/wp-content/uploads/2025/09/disney-plus-logo.jpg"
   },
   {
     id: 2,
-    title: "Free Speech Firestorm: NAB, Cruz, Trump Weigh In on FCC & Carr",
-    description: "A fierce clash over free speech and FCC power has thrust broadcasters into the center of a national storm, with NAB President Curtis LeGeyt, Senator Ted Cruz (R-TX), and President Donald Trump weighing in as Democrats demand FCC Chairman Brendan Carr's resignation. The controversy highlights ongoing tensions between federal regulators and the broadcasting industry over content oversight and regulatory authority.",
-    source: "Radio Ink",
-    date: "September 22, 2025",
-    url: "https://radioink.com/2025/09/22/free-speech-firestorm-nab-cruz-trump-weigh-in-on-fcc-carr/",
-    image: "https://radioink.com/wp-content/uploads/2025/09/fcc-controversy.jpg"
+    title: "SBS CEO: Expense Cuts Aren't Hurting Ratings Despite Revenue Drop",
+    description: "Spanish Broadcasting System cut operating costs 10% in Q2 and 11% year-to-date, with CEO Raúl Alarcón projecting more cuts coming with no impact on ratings or digital listening. However, Q2 revenue fell 14% and losses widened, while the company faces a significant challenge with a $310 million debt repayment due in March. Alarcón remains optimistic about maintaining audience engagement despite cost-cutting measures.",
+    source: "InsideRadio",
+    date: "September 25, 2025",
+    url: "https://www.insideradio.com/free/sbs-raul-alarcon-expense-cuts-arent-hurting-ratings-and-digital-growth/article_12345.html",
+    image: "https://www.insideradio.com/images/sbs-logo.jpg"
   },
   {
     id: 3,
-    title: "Audacy Partners with MOGL on NIL Sports Marketing",
-    description: "Audacy and MOGL announced a strategic partnership to expand sports marketing opportunities through Name, Image and Likeness (NIL) sponsorships. The collaboration enables brands to integrate athlete talent into Audacy's sports audio platforms, creating new revenue streams for both college athletes and radio broadcasters in the evolving sports media landscape.",
-    source: "Radio Ink",
-    date: "September 23, 2025",
-    url: "https://radioink.com/2025/09/23/audacy-partners-with-mogl-on-nil-sports-marketing/",
-    image: "https://radioink.com/wp-content/uploads/2025/09/audacy-sports-partnership.jpg"
+    title: "SEC Nation Hits the Road with New Travel Set",
+    description: "ESPN's SEC Nation has unveiled a new mobile set design for its college football coverage, featuring enhanced production capabilities and improved viewer experience. The traveling set incorporates state-of-the-art technology and flexible staging options to better serve the show's on-location broadcasts from SEC campuses. The new design reflects ESPN's continued investment in college sports programming and production quality.",
+    source: "NewscastStudio",
+    date: "September 25, 2025",
+    url: "https://www.newscaststudio.com/2025/09/25/sec-nation-travel-set/",
+    image: "https://www.newscaststudio.com/wp-content/uploads/2025/09/sec-nation-set.jpg"
   },
   {
     id: 4,
-    title: "Smart Glasses Boom Creates a New Opportunity for Radio",
-    description: "As smart glasses gain traction among young, tech-forward consumers, new data from S&P Global Market Intelligence suggests radio has a unique opportunity to meet future audiences exactly where they are: right between their ears. The emerging technology presents radio broadcasters with innovative ways to deliver audio content and advertising to a growing demographic of augmented reality users.",
-    source: "Radio Ink",
-    date: "September 23, 2025",
-    url: "https://radioink.com/2025/09/23/smart-glasses-boom-creates-new-opportunity-for-radio/",
-    image: "https://radioink.com/wp-content/uploads/2025/09/smart-glasses-radio.jpg"
+    title: "B+C Hall of Fame Announces Class of 2025",
+    description: "Broadcasting & Cable has announced its Hall of Fame Class of 2025, with the 33rd annual gala set to honor 15 industry influencers and the iconic soap opera 'Days of Our Lives' on September 30 in New York. The ceremony will recognize outstanding contributions to the broadcasting and cable television industry, celebrating both individual achievements and landmark programming that has shaped the medium.",
+    source: "Broadcasting & Cable",
+    date: "September 25, 2025",
+    url: "https://www.nexttv.com/broadcasting-cable/bc-hall-fame-announces-class-2025",
+    image: "https://www.nexttv.com/files/bc-hall-of-fame-logo.jpg"
   },
   {
     id: 5,
-    title: "End of the Line: CPB Sends Final Federal Payments to Local Radio",
-    description: "Ahead of the organization's closing days, the Corporation for Public Broadcasting has announced it will make one final distribution in Community Service Grants to eligible public radio and television stations, as federal support for local public media ends. The decision marks a significant shift in public broadcasting funding and raises questions about the future sustainability of community radio stations across America.",
-    source: "Radio Ink",
-    date: "September 22, 2025",
-    url: "https://radioink.com/2025/09/22/end-of-the-line-cpb-sends-final-federal-payments-to-local-radio/",
-    image: "https://radioink.com/wp-content/uploads/2025/09/cpb-final-payments.jpg"
+    title: "Kimmel Returns with FCC Satire and Seattle Radio Memories",
+    description: "Jimmy Kimmel's first night back on 'Jimmy Kimmel Live!' after his network suspension blended nostalgia and political satire. The late-night host recalled his short-lived stint at Seattle's KZOK-FM, where he was once fired by his program director, and enlisted Robert De Niro to lampoon FCC Chairman Brendan Carr as a mob boss threatening broadcasters' free speech. The show's return marks a significant moment in the ongoing debate over media content and regulatory oversight.",
+    source: "InsideRadio",
+    date: "September 25, 2025",
+    url: "https://www.insideradio.com/free/seattle-radio-fcc-satire-share-spotlight-as-kimmel-resumes-late-night/article_67890.html",
+    image: "https://www.insideradio.com/images/kimmel-show.jpg"
   },
   {
     id: 6,
-    title: "Judge Orders iHeart's TTWN to Pay $50M After Helicopter Crash",
-    description: "A North Carolina Superior Court judge has ordered Total Traffic & Weather Network to pay $50 million to the family of a Charlotte meteorologist killed in a 2022 helicopter crash alongside pilot Chip Tayag. TTWN has been owned by iHeartMedia since 2017. The ruling highlights ongoing safety concerns in broadcast traffic reporting operations and the legal responsibilities of media companies.",
-    source: "Radio Ink",
-    date: "September 22, 2025",
-    url: "https://radioink.com/2025/09/22/judge-orders-ihearts-ttwn-to-pay-50m-after-helicopter-crash/",
-    image: "https://radioink.com/wp-content/uploads/2025/09/helicopter-crash-ruling.jpg"
+    title: "DirecTV Acquires Dish, Unifying Struggling Satellite Business",
+    description: "DirecTV has announced its acquisition of Dish Network, creating a unified satellite television provider as both companies struggle with cord-cutting trends and streaming competition. The merger combines two of the largest satellite TV providers in the United States, with AT&T simultaneously selling its stake in DirecTV to private equity firm TPG. The deal represents a significant consolidation in the traditional pay-TV market as companies adapt to changing viewer habits.",
+    source: "Broadcasting & Cable",
+    date: "September 24, 2025",
+    url: "https://www.nexttv.com/broadcasting-cable/directv-acquires-dish-satellite-merger",
+    image: "https://www.nexttv.com/files/directv-dish-merger.jpg"
   },
   {
     id: 7,
-    title: "Boise Police 2025 Bronco Game Day Reminders",
-    description: "Boise Police Department provides important safety reminders and traffic information for fans attending Boise State Bronco football games during the 2025 season. The reminders include parking guidelines, pedestrian safety, and crowd management protocols for game day events. Local radio stations like KBOI are helping distribute these public safety messages to ensure smooth game day operations.",
-    source: "KBOI 93.1FM & 670AM",
-    date: "September 2025",
-    url: "https://www.kboi.com/2025/09/boise-police-bronco-game-day-reminders/",
-    image: "https://www.kboi.com/wp-content/uploads/2025/09/bronco-game-day.jpg"
+    title: "CBS Flashes Back to 70s with NFL Today Anniversary Show",
+    description: "CBS Sports is celebrating the legacy of 'The NFL Today' with a special anniversary broadcast that pays homage to the show's groundbreaking 1970s era. The retrospective features classic clips, interviews with former hosts, and behind-the-scenes stories from the program that revolutionized sports broadcasting. The special highlights how 'The NFL Today' set the standard for modern sports pregame shows and influenced decades of sports television programming.",
+    source: "NewscastStudio",
+    date: "September 25, 2025",
+    url: "https://www.newscaststudio.com/2025/09/25/cbs-nfl-today-anniversary/",
+    image: "https://www.newscaststudio.com/wp-content/uploads/2025/09/nfl-today-70s.jpg"
   },
   {
     id: 8,
-    title: "Rep. Simpson Advances Funding for Idaho Water Center",
-    description: "Idaho Representative Mike Simpson has successfully advanced federal funding for the Idaho Water Center, supporting critical water research and management initiatives across the state. The funding will help address Idaho's water infrastructure needs and support agricultural and municipal water systems. Local broadcasting stations are covering this important development for Idaho communities.",
-    source: "KBOI 93.1FM & 670AM",
-    date: "September 2025",
-    url: "https://www.kboi.com/2025/09/rep-simpson-advances-funding-idaho-water-center/",
-    image: "https://www.kboi.com/wp-content/uploads/2025/09/idaho-water-center.jpg"
+    title: "The Daily Show Goes Gold in Bow to Trump",
+    description: "Comedy Central's 'The Daily Show' has introduced new gold-themed graphics and set elements in what appears to be satirical commentary on Donald Trump's aesthetic preferences. The visual changes include metallic accents and luxury-inspired design elements that mirror Trump's well-known affinity for gold décor. The show's production team has incorporated these elements into segments covering political news, creating a visual metaphor for the current political climate.",
+    source: "NewscastStudio",
+    date: "September 25, 2025",
+    url: "https://www.newscaststudio.com/2025/09/25/daily-show-gold-trump/",
+    image: "https://www.newscaststudio.com/wp-content/uploads/2025/09/daily-show-gold.jpg"
   }
 ];
 

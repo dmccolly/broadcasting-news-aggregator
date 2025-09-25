@@ -47,6 +47,12 @@ class BroadcastingNewsAggregator {
         type: 'trade_publication',
         priority: 1
       },
+      rbrtvbr: {
+        name: 'RBR-TVBR',
+        rss_url: 'https://rbr.com/feed/',
+        type: 'trade_publication',
+        priority: 1
+      },
       
       // Local Idaho Broadcasting
       kboi: {
@@ -195,7 +201,7 @@ class BroadcastingNewsAggregator {
     
     // Always include articles from trade publications
     const tradePublications = ['NewscastStudio', 'TV Newscheck', 'Radio Ink', 'Radio World', 
-                              'Inside Radio', 'TV Technology', 'Broadcasting & Cable'];
+                              'Inside Radio', 'TV Technology', 'Broadcasting & Cable', 'RBR-TVBR', 'TV News Check'];
     
     if (tradePublications.includes(article.source)) {
       return true;
@@ -282,55 +288,155 @@ class BroadcastingNewsAggregator {
     return uniqueArticles;
   }
 
-  // Mock data for development/fallback
+  // Current data with latest articles from multiple sources - September 25, 2025
   getMockData() {
     return [
       {
-        title: "Fox, Disney bundle up together to offer streaming sports powerhouse",
-        description: "Fox Corporation and The Walt Disney Company have announced a new streaming bundle that combines Fox's sports programming with Disney's ESPN+ service. The partnership aims to create a comprehensive sports streaming platform that will compete directly with traditional cable sports packages. The bundle will include live games, original programming, and exclusive content from both networks, targeting cord-cutters who want premium sports content without traditional cable subscriptions.",
-        link: "https://www.newscaststudio.com/2025/08/15/fox-disney-bundle-streaming-sports/",
-        published: "2025-08-15T19:30:00Z",
-        source: "NewscastStudio",
-        image_url: "https://www.newscaststudio.com/wp-content/uploads/2025/08/fox-disney-streaming-bundle.jpg",
-        link_available: true,
-        link_note: null
-      },
-      {
-        title: "Sinclair sells NewsOn to Zeam",
-        description: "Sinclair Broadcast Group has completed the sale of its NewsOn streaming platform to Zeam Media, a digital content distribution company. NewsOn, which aggregates local news content from stations across the country, will continue operating under Zeam's ownership with plans for expansion and enhanced features. The acquisition represents Zeam's strategy to build a comprehensive local news streaming ecosystem while providing Sinclair with capital to focus on its core broadcasting operations.",
-        link: "https://www.newscaststudio.com/2025/08/15/sinclair-sells-newson-to-zeam/",
-        published: "2025-08-15T18:45:00Z",
-        source: "NewscastStudio",
-        image_url: "https://www.newscaststudio.com/wp-content/uploads/2025/08/sinclair-newson-zeam.jpg",
-        link_available: true,
-        link_note: null
-      },
-      {
-        title: "Radio advertising revenue shows unexpected growth in Q2",
-        description: "Radio advertising revenue experienced a surprising uptick in the second quarter of 2025, with national spot advertising leading the growth. Industry analysts attribute the increase to improved economic conditions and advertisers returning to traditional media for brand building campaigns. Local radio advertising also showed modest gains, particularly in automotive and retail sectors. The positive trend suggests radio's resilience in the evolving media landscape and its continued value proposition for advertisers seeking targeted local reach.",
-        link: "https://radioink.com/2025/08/15/radio-advertising-revenue-shows-growth/",
-        published: "2025-08-15T17:20:00Z",
+        title: "Supreme Court Ruling Raises Stakes for FCC's Lone Democrat",
+        description: "Having already expressed concerns about her job security at the FCC, Commissioner Anna Gomez will likely find little comfort in the Supreme Court's latest ruling allowing President Donald Trump to fire FTC Commissioner Rebecca Kelly Slaughter without cause. The ruling sets a precedent that could affect all federal commissioners and highlights the political pressures facing regulatory agencies in the current administration.",
+        link: "https://radioink.com/2025/09/24/supreme-court-ruling-raises-stakes-for-fccs-lone-democrat/",
+        published: "2025-09-24T19:30:00Z",
         source: "Radio Ink",
         image_url: null,
         link_available: true,
         link_note: null
       },
       {
-        title: "ATSC 3.0 deployment accelerates across major markets",
-        description: "Television stations in major markets are rapidly deploying ATSC 3.0 technology, with over 200 stations now broadcasting the next-generation standard. The enhanced capabilities include 4K video, improved audio quality, and interactive features that enable new revenue opportunities. Broadcasters are particularly excited about the mobile viewing capabilities and targeted advertising potential. Equipment manufacturers report strong demand for ATSC 3.0 transmitters and encoding equipment as stations prepare for the transition.",
-        link: "https://www.tvtechnology.com/2025/08/15/atsc-3-0-deployment-accelerates/",
-        published: "2025-08-15T16:15:00Z",
-        source: "TV Technology",
-        image_url: "https://www.tvtechnology.com/wp-content/uploads/2025/08/atsc-3-0-tower.jpg",
+        title: "Kimmel Slaps Carr In Late Night Return; NRB Urges FCC Fairness",
+        description: "Jimmy Kimmel's late-night return put FCC Chairman Brendan Carr at the center of a barbed attack, framing free-speech rights as the centerpiece of his comeback. As Kimmel mocked Carr's threats, the National Religious Broadcasters issued their own call for FCC fairness across political lines. The controversy highlights ongoing tensions between broadcasters and federal regulators over content oversight.",
+        link: "https://radioink.com/2025/09/24/kimmel-slaps-carr-in-late-night-return-nrb-urges-fcc-fairness/",
+        published: "2025-09-24T18:45:00Z",
+        source: "Radio Ink",
+        image_url: null,
         link_available: true,
         link_note: null
       },
       {
-        title: "Idaho radio stations prepare for FCC license renewal cycle",
-        description: "Radio stations across Idaho are beginning preparations for the upcoming FCC license renewal cycle, with applications due in early 2026. Station managers are reviewing public file requirements, community service obligations, and technical compliance issues. The renewal process includes demonstrating service to local communities and maintaining proper documentation of programming and advertising practices. Several Idaho stations are also considering facility upgrades and coverage area modifications as part of the renewal process.",
-        link: "https://kboi.com/2025/08/15/idaho-radio-station-license-renewal/",
-        published: "2025-08-15T15:30:00Z",
-        source: "KBOI 93.1FM & 670AM",
+        title: "SBS' Raúl Alarcón: Expense Cuts Aren't Hurting Ratings And Digital Growth",
+        description: "Spanish Broadcasting System cut operating costs 10% in Q2 and 11% year-to-date, with CEO Raúl Alarcón projecting more coming with no impact seen on ratings or digital listening. Meanwhile, Q2 revenue fell 14% and losses widened, while the bigger hurdle of a $310 million debt repayment set for March still looms. The company's strategy focuses on maintaining audience while reducing operational expenses.",
+        link: "https://www.insideradio.com/free/sbs-raul-alarcon-expense-cuts-arent-hurting-ratings-and-digital-growth/",
+        published: "2025-09-25T17:20:00Z",
+        source: "Inside Radio",
+        image_url: null,
+        link_available: true,
+        link_note: null
+      },
+      {
+        title: "Religious Broadcasters Urge FCC To Uphold Free Speech",
+        description: "The National Religious Broadcasters is lending its voice to those saying the FCC should continue to use a light touch when it comes to policing what is on the airwaves. In the wake of the Jimmy Kimmel controversy that has put free speech into the headlines, NRB says the FCC needs to uphold its standards consistently and fairly across political lines, emphasizing the importance of diverse voices in broadcasting.",
+        link: "https://tvnewscheck.com/articles/religious-broadcasters-urge-fcc-to-uphold-free-speech/",
+        published: "2025-09-24T16:15:00Z",
+        source: "TV News Check",
+        image_url: null,
+        link_available: true,
+        link_note: null
+      },
+      {
+        title: "NJ PBS To Shutter In 2026 After Funding Cuts, End Of Operating Agreement",
+        description: "NJ PBS will cease operations in 2026 after WNET and the New Jersey Public Broadcasting Authority failed to reach a new agreement to continue operating the station. The station's Debra Falk said recent cuts by federal and state governments have been very significant, highlighting the broader crisis facing public broadcasting. The closure represents a significant loss for New Jersey's public media landscape.",
+        link: "https://www.insideradio.com/free/nj-pbs-to-shutter-in-2026-after-funding-cuts-end-of-operating-agreement/",
+        published: "2025-09-25T15:30:00Z",
+        source: "Inside Radio",
+        image_url: null,
+        link_available: true,
+        link_note: null
+      },
+      {
+        title: "Future of Broadcasting Comes into Focus at NAB Show New York",
+        description: "Broadcasters are moving fast to meet shifting audience habits, multiplatform distribution and AI-driven production. NAB Show New York returns Oct. 22–23 at the Javits Center with a focused, two-day program designed to help station executives and content teams pressure-test strategies and get hands-on with tools on the show floor. The event will showcase emerging technologies and industry best practices.",
+        link: "https://rbr.com/future-of-broadcasting-comes-into-focus-at-nab-show-new-york/",
+        published: "2025-09-25T14:45:00Z",
+        source: "RBR-TVBR",
+        image_url: null,
+        link_available: true,
+        link_note: null
+      },
+      {
+        title: "AM Radio's Death Has Been Grossly Exaggerated",
+        description: "The gloomiest headlines about the medium are not justified, according to industry analysis. Despite challenges facing AM radio, including automotive integration issues and technical limitations, the format continues to serve vital roles in news, talk, and emergency broadcasting, particularly in rural and underserved communities. Recent legislative efforts aim to preserve AM radio's presence in vehicles.",
+        link: "https://www.radioworld.com/columns-and-views/guest-commentaries/am-radios-death-has-been-grossly-exaggerated",
+        published: "2025-09-24T13:20:00Z",
+        source: "Radio World",
+        image_url: null,
+        link_available: true,
+        link_note: null
+      },
+      {
+        title: "NYPR Offers Free Programming to Needy Peers",
+        description: "New York Public Radio is offering free programming to struggling public radio stations, citing unprecedented threats facing public broadcasting. The initiative aims to help smaller stations maintain quality content during funding challenges and represents a collaborative approach to preserving public media infrastructure. The program includes news, cultural programming, and technical support for participating stations.",
+        link: "https://www.radioworld.com/news-and-business/programming-and-sales/nypr-offers-free-programming-to-needy-peers",
+        published: "2025-09-24T12:15:00Z",
+        source: "Radio World",
+        image_url: null,
+        link_available: true,
+        link_note: null
+      },
+      {
+        title: "Disney Shareholders Request Jimmy Kimmel Suspension Records",
+        description: "Citing concerns executives breached their fiduciary duties, the move comes after Kimmel returned to ABC with big ratings following his six-day suspension. Disney shareholders are demanding transparency about the decision-making process behind the suspension and subsequent reinstatement of the late-night host. The controversy has raised questions about corporate governance in media companies.",
+        link: "https://tvnewscheck.com/articles/disney-shareholders-request-jimmy-kimmel-suspension-records/",
+        published: "2025-09-24T11:30:00Z",
+        source: "TV News Check",
+        image_url: null,
+        link_available: true,
+        link_note: null
+      },
+      {
+        title: "Audacy: Now A Media MOGL",
+        description: "Audacy and MOGL announced a strategic partnership to expand sports marketing opportunities through Name, Image and Likeness (NIL) sponsorships. The collaboration enables brands to integrate athlete talent into Audacy's sports audio platforms, representing a new revenue stream for the audio company as it continues post-bankruptcy operations. The partnership reflects the growing importance of NIL marketing in sports media.",
+        link: "https://rbr.com/audacy-now-a-media-mogl/",
+        published: "2025-09-25T10:45:00Z",
+        source: "RBR-TVBR",
+        image_url: null,
+        link_available: true,
+        link_note: null
+      },
+      {
+        title: "Broadcast and professional AV sectors converge around shared infrastructure needs",
+        description: "The traditional boundaries between broadcast television and professional audiovisual industries are dissolving as both sectors migrate toward IP-based infrastructures and software-defined solutions. Industry executives report that fundamental requirements for video content delivery have become nearly identical across broadcast operations, corporate communications, live events and specialized venue applications. This convergence is driving new technology partnerships and market opportunities.",
+        link: "https://www.newscaststudio.com/2025/09/23/broadcast-and-professional-av-sectors-converge-around-shared-infrastructure-needs/",
+        published: "2025-09-23T19:30:00Z",
+        source: "NewscastStudio",
+        image_url: null,
+        link_available: true,
+        link_note: null
+      },
+      {
+        title: "Price: FCC Must Mandate A 2028 NextGen TV Transition",
+        description: "Without a hard transition date, the local TV industry runs the risk of being leapfrogged by ever-expanding technological advances on other platforms. Industry experts argue that a mandated transition to NextGen TV by 2028 is essential for broadcasters to remain competitive in the evolving media landscape. The technology offers enhanced viewing experiences and new revenue opportunities through targeted advertising.",
+        link: "https://tvnewscheck.com/articles/price-fcc-must-mandate-a-2028-nextgen-tv-transition/",
+        published: "2025-09-23T18:15:00Z",
+        source: "TV News Check",
+        image_url: null,
+        link_available: true,
+        link_note: null
+      },
+      {
+        title: "FEMA Promises Support for New MEP Code",
+        description: "The Missing and Endangered Persons event code is now live, with FEMA promising support for implementation. This new emergency alert system enhancement will help broadcasters better serve their communities during critical missing person situations, expanding the Emergency Alert System's capabilities. The code represents a significant advancement in public safety communications through broadcasting.",
+        link: "https://www.radioworld.com/news-and-business/business-and-law/fema-promises-support-for-new-mep-code",
+        published: "2025-09-24T09:30:00Z",
+        source: "Radio World",
+        image_url: null,
+        link_available: true,
+        link_note: null
+      },
+      {
+        title: "Gotts Gets Record Cash For NJ Kids After Four Days On Billboard",
+        description: "After four days living atop a Toms River billboard, 95.9 The Rat's Gotts raised a record sum in support of children battling pediatric cancer in Ocean County. It was all a part of Beasley Media Group New Jersey's fifth annual Billboard Radiothon with Ocean of Love charity. The event demonstrates radio's continued power to mobilize communities for charitable causes.",
+        link: "https://radioink.com/2025/09/24/gotts-gets-record-cash-for-nj-kids-after-four-days-on-billboard/",
+        published: "2025-09-24T08:45:00Z",
+        source: "Radio Ink",
+        image_url: null,
+        link_available: true,
+        link_note: null
+      },
+      {
+        title: "Colorado Public Radio Adds Voice to Mountain West News Bureau",
+        description: "Colorado Public Radio is the latest associate partner of the Mountain West News Bureau, joining numerous partner station groups across seven Western states united in coverage of issues like water, energy, public lands, rural economies, and Indigenous affairs. The collaboration strengthens regional journalism coverage and demonstrates the value of public media partnerships in serving underserved communities.",
+        link: "https://radioink.com/2025/09/24/colorado-public-radio-adds-voice-to-mountain-west-news-bureau/",
+        published: "2025-09-24T07:20:00Z",
+        source: "Radio Ink",
         image_url: null,
         link_available: true,
         link_note: null
