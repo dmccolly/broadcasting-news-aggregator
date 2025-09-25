@@ -53,6 +53,12 @@ class BroadcastingNewsAggregator {
         type: 'trade_publication',
         priority: 1
       },
+      insideaudiomarketing: {
+        name: 'Inside Audio Marketing',
+        rss_url: 'https://www.insideaudiomarketing.com/feed',
+        type: 'trade_publication',
+        priority: 1
+      },
       
       // Local Idaho Broadcasting
       kboi: {
@@ -201,7 +207,7 @@ class BroadcastingNewsAggregator {
     
     // Always include articles from trade publications
     const tradePublications = ['NewscastStudio', 'TV Newscheck', 'Radio Ink', 'Radio World', 
-                              'Inside Radio', 'TV Technology', 'Broadcasting & Cable', 'RBR-TVBR', 'TV News Check'];
+                              'Inside Radio', 'TV Technology', 'Broadcasting & Cable', 'RBR-TVBR', 'TV News Check', 'Inside Audio Marketing'];
     
     if (tradePublications.includes(article.source)) {
       return true;
@@ -337,6 +343,26 @@ class BroadcastingNewsAggregator {
         link: "https://www.insideradio.com/free/nj-pbs-to-shutter-in-2026-after-funding-cuts-end-of-operating-agreement/",
         published: "2025-09-25T15:30:00Z",
         source: "Inside Radio",
+        image_url: null,
+        link_available: true,
+        link_note: null
+      },
+      {
+        title: "BIA Forecasts $12.3B In Local Radio Revenue For 2025",
+        description: "Total local advertising spending is projected to reach $168.2 billion in 2025 (ex. political), with local radio as the fifth-largest medium capturing $12.3 billion. The forecast shows radio maintaining its position as a key local advertising platform despite digital competition. BIA Advisory Services notes that radio's local focus and community connection continue to drive advertiser investment in the medium.",
+        link: "https://www.insideaudiomarketing.com/post/bia-forecasts-12-3b-in-local-radio-revenue-for-2025",
+        published: "2025-09-25T14:00:00Z",
+        source: "Inside Audio Marketing",
+        image_url: null,
+        link_available: true,
+        link_note: null
+      },
+      {
+        title: "Q&A: Dave Sturgeon On 'The Truth About Radio'",
+        description: "40-year radio industry veteran and ad agency founder Dave Sturgeon aims to set the record straight on radio's reach, relevance, and ROI. In this comprehensive interview, Sturgeon addresses common misconceptions about radio advertising effectiveness and shares insights from decades of experience in both radio and advertising agency work. His perspective offers valuable insights for marketers considering audio advertising strategies.",
+        link: "https://www.insideaudiomarketing.com/post/qa-dave-sturgeon-on-the-truth-about-radio",
+        published: "2025-09-25T13:45:00Z",
+        source: "Inside Audio Marketing",
         image_url: null,
         link_available: true,
         link_note: null
