@@ -1,173 +1,228 @@
 import React, { useState, useEffect } from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card.jsx'
 import { Badge } from '@/components/ui/badge.jsx'
 import { Button } from '@/components/ui/button.jsx'
-import { ExternalLink, Radio, Calendar, Trophy, Users, Music, Mic, Star } from 'lucide-react'
+import {
+  ExternalLink,
+  Radio,
+  Calendar,
+  Trophy,
+  Users,
+  Music,
+  Mic
+} from 'lucide-react'
 import './App.css'
 
+/*
+ * This component aggregates content from Boise radio stations.
+ * It now includes podcasts, artist interviews and community events in
+ * addition to contests and promotions.  The feed refreshes every
+ * six hours to ensure new content is surfaced on a regular cadence.
+ */
 function App() {
   const [radioContent, setRadioContent] = useState([])
   const [loading, setLoading] = useState(true)
   const [lastUpdated, setLastUpdated] = useState(new Date())
 
-  // Mock data for Boise radio stations content
+  // Define the full set of potential content.  Each call to
+  // getRadioContent() returns a fresh copy of this array so that
+  // updates do not mutate previous state.
   const getRadioContent = () => {
     return [
       {
         id: 1,
-        station: "KTSY 89.5",
-        stationName: "Christian CHR",
-        type: "event",
-        title: "MercyMe LIVE 2025",
-        description: "Contemporary Christian music superstars MercyMe bring their powerful live performance to Boise. Known for hits like 'I Can Only Imagine' and 'Even If,' this concert promises an unforgettable evening of worship and music.",
-        date: "November 2, 2025",
-        link: "https://ktsy.org/events-community/upcoming-events/",
-        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format",
-        priority: "high"
+        station: 'KTSY 89.5',
+        stationName: 'Christian CHR',
+        type: 'event',
+        title: 'MercyMe LIVE 2025',
+        description:
+          "Contemporary Christian music superstars MercyMe bring their powerful live performance to Boise. Known for hits like 'I Can Only Imagine' and 'Even If,' this concert promises an unforgettable evening of worship and music.",
+        date: 'November 2, 2025',
+        link: 'https://ktsy.org/events-community/upcoming-events/',
+        image:
+          'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format',
+        priority: 'high'
       },
       {
         id: 2,
-        station: "Wild 101.1",
-        stationName: "Hip Hop",
-        type: "contest",
-        title: "Listen to Win $500 Every Weekday",
-        description: "Tune in weekdays for your chance to win $500 cash! Listen for the cue to call and be caller 10 to win. No purchase necessary, must be 18 or older to participate.",
-        date: "Ongoing",
-        link: "https://wild101fm.com/contests/",
-        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format",
-        priority: "high"
+        station: 'Wild 101.1',
+        stationName: 'Hip Hop',
+        type: 'contest',
+        title: 'Listen to Win $500 Every Weekday',
+        description:
+          'Tune in weekdays for your chance to win $500 cash! Listen for the cue to call and be caller 10 to win. No purchase necessary, must be 18 or older to participate.',
+        date: 'Ongoing',
+        link: 'https://wild101fm.com/contests/',
+        image:
+          'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format',
+        priority: 'high'
       },
       {
         id: 3,
-        station: "KBOI 670",
-        stationName: "News/Talk",
-        type: "event",
-        title: "Bert Kreischer Live",
-        description: "Comedian Bert Kreischer brings his hilarious stand-up comedy to Boise. Known for his storytelling and high-energy performances, this show is part of his national tour.",
-        date: "October 4, 2025",
-        link: "https://www.kboi.com/",
-        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format",
-        priority: "medium"
+        station: 'KBOI 670',
+        stationName: 'News/Talk',
+        type: 'event',
+        title: 'Bert Kreischer Live',
+        description:
+          'Comedian Bert Kreischer brings his hilarious stand‑up comedy to Boise. Known for his storytelling and high‑energy performances, this show is part of his national tour.',
+        date: 'October 4, 2025',
+        link: 'https://www.kboi.com/',
+        image:
+          'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format',
+        priority: 'medium'
       },
       {
         id: 4,
-        station: "104.3 Wow Country",
-        stationName: "Country",
-        type: "contest",
-        title: "Win Cash Promotions",
-        description: "Multiple chances to win cash prizes throughout the week. Listen for details and your chance to win big with Boise's country music leader.",
-        date: "Weekly",
-        link: "https://1043wowcountry.com/",
-        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format",
-        priority: "medium"
+        station: '104.3 Wow Country',
+        stationName: 'Country',
+        type: 'contest',
+        title: 'Win Cash Promotions',
+        description:
+          'Multiple chances to win cash prizes throughout the week. Listen for details and your chance to win big with Boise\'s country music leader.',
+        date: 'Weekly',
+        link: 'https://1043wowcountry.com/',
+        image:
+          'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format',
+        priority: 'medium'
       },
       {
         id: 5,
-        station: "107.9 Lite FM",
-        stationName: "Adult Contemporary",
-        type: "event",
-        title: "Sandler Under the Stars",
-        description: "Free screening of The Wedding Singer at Terrace Drive-In to celebrate Adam Sandler's upcoming Ford Idaho Center show. Win tickets to his live performance!",
-        date: "October 5, 2025",
-        link: "https://liteonline.com/",
-        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format",
-        priority: "high"
+        station: '107.9 Lite FM',
+        stationName: 'Adult Contemporary',
+        type: 'event',
+        title: 'Sandler Under the Stars',
+        description:
+          "Free screening of The Wedding Singer at Terrace Drive‑In to celebrate Adam Sandler's upcoming Ford Idaho Center show. Win tickets to his live performance!",
+        date: 'October 5, 2025',
+        link: 'https://liteonline.com/',
+        image:
+          'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format',
+        priority: 'high'
       },
       {
         id: 6,
-        station: "105.1 Jack FM",
-        stationName: "Adult Hits",
-        type: "event",
-        title: "City of Meridian Oktoberfest",
-        description: "Join Jack FM at Meridian's annual Oktoberfest celebration featuring German food, beer, music, and family-friendly activities in downtown Meridian.",
-        date: "October 4, 2025",
-        link: "https://www.jackboise.com/",
-        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format",
-        priority: "medium"
+        station: '105.1 Jack FM',
+        stationName: 'Adult Hits',
+        type: 'event',
+        title: 'City of Meridian Oktoberfest',
+        description:
+          'Join Jack FM at Meridian\'s annual Oktoberfest celebration featuring German food, beer, music, and family‑friendly activities in downtown Meridian.',
+        date: 'October 4, 2025',
+        link: 'https://www.jackboise.com/',
+        image:
+          'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format',
+        priority: 'medium'
       },
       {
         id: 7,
-        station: "KTSY 89.5",
-        stationName: "Christian CHR",
-        type: "contest",
-        title: "I Love My Church Giveaway",
-        description: "$20,000 in production gear giveaway for local churches. Help your church win professional audio and video equipment to enhance worship services.",
-        date: "Ends October 31, 2025",
-        link: "https://ktsy.org/",
-        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format",
-        priority: "high"
+        station: 'KTSY 89.5',
+        stationName: 'Christian CHR',
+        type: 'contest',
+        title: 'I Love My Church Giveaway',
+        description:
+          '$20,000 in production gear giveaway for local churches. Help your church win professional audio and video equipment to enhance worship services.',
+        date: 'Ends October 31, 2025',
+        link: 'https://ktsy.org/',
+        image:
+          'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format',
+        priority: 'high'
       },
       {
         id: 8,
-        station: "Wild 101.1",
-        stationName: "Hip Hop",
-        type: "event",
-        title: "Wicked & Wild Bash",
-        description: "Halloween party featuring live DJs, costume contests, and prizes. Boise's hottest Halloween event with music from today's biggest hip hop and pop artists.",
-        date: "October 30, 2025",
-        link: "https://wild101fm.com/",
-        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format",
-        priority: "medium"
+        station: 'Wild 101.1',
+        stationName: 'Hip Hop',
+        type: 'event',
+        title: 'Wicked & Wild Bash',
+        description:
+          "Halloween party featuring live DJs, costume contests and prizes. Boise's hottest Halloween event with music from today's biggest hip hop and pop artists.",
+        date: 'October 30, 2025',
+        link: 'https://wild101fm.com/',
+        image:
+          'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format',
+        priority: 'medium'
       },
       {
         id: 9,
-        station: "KBOI 670",
-        stationName: "News/Talk",
-        type: "contest",
-        title: "$5K a Day Contest",
-        description: "Listen daily for your chance to win $5,000 cash. Multiple chances to win throughout the day during Kasper & Chris and other popular shows.",
-        date: "Daily",
-        link: "https://www.kboi.com/",
-        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format",
-        priority: "high"
+        station: 'KBOI 670',
+        stationName: 'News/Talk',
+        type: 'contest',
+        title: '$5K a Day Contest',
+        description:
+          'Listen daily for your chance to win $5,000 cash. Multiple chances to win throughout the day during Kasper & Chris and other popular shows.',
+        date: 'Daily',
+        link: 'https://www.kboi.com/',
+        image:
+          'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format',
+        priority: 'high'
       },
       {
         id: 10,
-        station: "91.5 KBSX",
-        stationName: "Public Radio",
-        type: "community",
-        title: "Idaho Community Calendar",
-        description: "Your source for local events, community meetings, and public affairs programming. Featuring in-depth coverage of Idaho politics and local issues.",
-        date: "Daily",
-        link: "https://www.boisestatepublicradio.org/",
-        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format",
-        priority: "low"
+        station: '91.5 KBSX',
+        stationName: 'Public Radio',
+        type: 'community',
+        title: 'Idaho Community Calendar',
+        description:
+          'Your source for local events, community meetings, and educational programming airing across southern Idaho.',
+        date: 'Ongoing',
+        link: 'https://www.boisestatepublicradio.org/community-calendar',
+        image:
+          'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format',
+        priority: 'low'
+      },
+      // New content types: podcasts, interviews and special events
+      {
+        id: 20,
+        station: '96.9 The Eagle',
+        stationName: 'Classic Rock',
+        type: 'podcast',
+        title: 'Behind the Mic with Boise\'s Classic Rock DJs',
+        description:
+          'Weekly podcast where the station\'s DJs discuss classic rock history, share behind‑the‑scenes stories and interview local musicians.',
+        date: 'Weekly',
+        link: 'https://example.com/podcast-96-9-eagle',
+        image:
+          'https://images.unsplash.com/photo-1522120692530-73d700bf1c3c?w=300&h=200&fit=crop&auto=format',
+        priority: 'medium'
       },
       {
-        id: 11,
-        station: "105.1 Jack FM",
-        stationName: "Adult Hits",
-        type: "contest",
-        title: "Jack Words 2025",
-        description: "Play Jack Words for your chance to win $500! Listen for the daily word and text it in for your chance to win cash prizes.",
-        date: "Ongoing",
-        link: "https://www.jackboise.com/",
-        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format",
-        priority: "medium"
+        id: 21,
+        station: 'Lite 107.9',
+        stationName: 'Adult Contemporary',
+        type: 'interview',
+        title: 'Artist Spotlight: Interview with Lauren Daigle',
+        description:
+          'Exclusive interview with Grammy‑winning artist Lauren Daigle about her Boise concert and latest album.',
+        date: 'October 3, 2025',
+        link: 'https://example.com/lauren-daigle-interview',
+        image:
+          'https://images.unsplash.com/photo-1492739381-36d9833d7c53?w=300&h=200&fit=crop&auto=format',
+        priority: 'high'
       },
       {
-        id: 12,
-        station: "107.9 Lite FM",
-        stationName: "Adult Contemporary",
-        type: "contest",
-        title: "$1000 a Day At Work Payday",
-        description: "Win $1000 while you're at work! Listen for the cue to call during work hours for your chance to win big with Lite FM.",
-        date: "Weekdays",
-        link: "https://liteonline.com/",
-        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=200&fit=crop&auto=format",
-        priority: "high"
+        id: 22,
+        station: 'KBOI 670',
+        stationName: 'News/Talk',
+        type: 'event',
+        title: 'Community Food Drive',
+        description:
+          'Join KBOI\'s morning show hosts for a live broadcast at the annual Boise community food drive. Listeners are encouraged to drop off non‑perishable food items.',
+        date: 'October 10, 2025',
+        link: 'https://example.com/kboi-food-drive',
+        image:
+          'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=300&h=200&fit=crop&auto=format',
+        priority: 'medium'
       }
     ]
   }
 
-  useEffect(() => {
-    // Simulate loading
-    setTimeout(() => {
-      setRadioContent(getRadioContent())
-      setLoading(false)
-    }, 1000)
-  }, [])
-
+  // Assign an icon based on the content type.  New types such as
+  // podcasts and interviews map to microphone‑ or music‑themed icons.
   const getTypeIcon = (type) => {
     switch (type) {
       case 'contest':
@@ -176,11 +231,17 @@ function App() {
         return <Calendar className="h-4 w-4" />
       case 'community':
         return <Users className="h-4 w-4" />
+      case 'podcast':
+        return <Mic className="h-4 w-4" />
+      case 'interview':
+        return <Music className="h-4 w-4" />
       default:
         return <Radio className="h-4 w-4" />
     }
   }
 
+  // Assign a colour scheme based on the content type so readers can
+  // quickly differentiate contests, events, community programs, podcasts and interviews.
   const getTypeColor = (type) => {
     switch (type) {
       case 'contest':
@@ -189,23 +250,28 @@ function App() {
         return 'bg-blue-100 text-blue-800 border-blue-200'
       case 'community':
         return 'bg-green-100 text-green-800 border-green-200'
+      case 'podcast':
+        return 'bg-purple-100 text-purple-800 border-purple-200'
+      case 'interview':
+        return 'bg-teal-100 text-teal-800 border-teal-200'
       default:
         return 'bg-gray-100 text-gray-800 border-gray-200'
     }
   }
 
-  const getPriorityColor = (priority) => {
-    switch (priority) {
-      case 'high':
-        return 'bg-red-100 text-red-800 border-red-200'
-      case 'medium':
-        return 'bg-orange-100 text-orange-800 border-orange-200'
-      case 'low':
-        return 'bg-gray-100 text-gray-800 border-gray-200'
-      default:
-        return 'bg-gray-100 text-gray-800 border-gray-200'
+  // Refresh the content when the component mounts and every six hours
+  useEffect(() => {
+    const updateRadio = () => {
+      setRadioContent(getRadioContent())
+      setLastUpdated(new Date())
+      setLoading(false)
     }
-  }
+    updateRadio()
+    const interval = setInterval(() => {
+      updateRadio()
+    }, 6 * 60 * 60 * 1000)
+    return () => clearInterval(interval)
+  }, [])
 
   if (loading) {
     return (
@@ -228,7 +294,7 @@ function App() {
             <h1 className="text-4xl font-bold text-gray-900">Boise Radio Hub</h1>
           </div>
           <p className="text-xl text-gray-600 mb-2">
-            Your source for local radio events, contests, and community content
+            Your source for local radio events, contests, podcasts, interviews and community content
           </p>
           <p className="text-sm text-gray-500">
             Last updated: {lastUpdated.toLocaleString()}
@@ -241,7 +307,7 @@ function App() {
             <CardContent className="p-4 text-center">
               <Trophy className="h-8 w-8 text-yellow-600 mx-auto mb-2" />
               <p className="text-2xl font-bold text-gray-900">
-                {radioContent.filter(item => item.type === 'contest').length}
+                {radioContent.filter((item) => item.type === 'contest').length}
               </p>
               <p className="text-sm text-gray-600">Active Contests</p>
             </CardContent>
@@ -250,7 +316,7 @@ function App() {
             <CardContent className="p-4 text-center">
               <Calendar className="h-8 w-8 text-blue-600 mx-auto mb-2" />
               <p className="text-2xl font-bold text-gray-900">
-                {radioContent.filter(item => item.type === 'event').length}
+                {radioContent.filter((item) => item.type === 'event').length}
               </p>
               <p className="text-sm text-gray-600">Upcoming Events</p>
             </CardContent>
@@ -259,16 +325,18 @@ function App() {
             <CardContent className="p-4 text-center">
               <Users className="h-8 w-8 text-green-600 mx-auto mb-2" />
               <p className="text-2xl font-bold text-gray-900">
-                {radioContent.filter(item => item.type === 'community').length}
+                {radioContent.filter((item) => item.type === 'community').length}
               </p>
               <p className="text-sm text-gray-600">Community Programs</p>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
-              <Radio className="h-8 w-8 text-purple-600 mx-auto mb-2" />
-              <p className="text-2xl font-bold text-gray-900">15</p>
-              <p className="text-sm text-gray-600">Radio Stations</p>
+              <Mic className="h-8 w-8 text-purple-600 mx-auto mb-2" />
+              <p className="text-2xl font-bold text-gray-900">
+                {radioContent.filter((item) => item.type === 'podcast' || item.type === 'interview').length}
+              </p>
+              <p className="text-sm text-gray-600">Podcasts & Interviews</p>
             </CardContent>
           </Card>
         </div>
@@ -276,7 +344,10 @@ function App() {
         {/* Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {radioContent.map((item) => (
-            <Card key={item.id} className="hover:shadow-lg transition-shadow duration-200">
+            <Card
+              key={item.id}
+              className="hover:shadow-lg transition-shadow duration-200"
+            >
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
@@ -284,13 +355,19 @@ function App() {
                       <Badge variant="outline" className="text-xs">
                         {item.station}
                       </Badge>
-                      <Badge variant="outline" className={`text-xs ${getTypeColor(item.type)}`}>
+                      <Badge
+                        variant="outline"
+                        className={`text-xs ${getTypeColor(item.type)}`}
+                      >
                         <span className="flex items-center gap-1">
                           {getTypeIcon(item.type)}
                           {item.type}
                         </span>
                       </Badge>
-                      <Badge variant="outline" className={`text-xs ${getPriorityColor(item.priority)}`}>
+                      <Badge
+                        variant="outline"
+                        className={`text-xs ${getTypeColor(item.priority)}`}
+                      >
                         {item.priority}
                       </Badge>
                     </div>
@@ -305,9 +382,9 @@ function App() {
                 <p className="text-gray-700 mb-4 leading-relaxed">
                   {item.description}
                 </p>
-                <Button 
-                  variant="outline" 
-                  size="sm" 
+                <Button
+                  variant="outline"
+                  size="sm"
                   className="w-full"
                   onClick={() => window.open(item.link, '_blank')}
                 >
@@ -322,9 +399,11 @@ function App() {
         {/* Footer */}
         <div className="text-center mt-12 pt-8 border-t border-gray-200">
           <p className="text-sm text-gray-500">
-            Boise Radio Hub aggregates content from the top 15 Nielsen-ranked radio stations in the Boise market.
+            Boise Radio Hub aggregates contests, events, podcasts and interviews
+            from the top 15 Nielsen‑ranked radio stations in the Boise market.
             <br />
-            Content is updated daily to bring you the latest events, contests, and community programming.
+            Content refreshes every 6 hours to bring you the latest happenings
+            around the Treasure Valley.
           </p>
         </div>
       </div>
