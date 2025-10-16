@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
 
-/*
- * A pool of news stories for the broadcasting feed.  When the page
- * first loads and on every six‑hour refresh the component will pick
- * a random selection from this array.  You can freely add new
- * objects to this list to surface additional stories or remove
- * outdated entries.  Each item must include an `id`, `title`,
- * `description`, `source`, `date`, `url` and `image` property.
- */
-const ALL_NEWS = [
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+
+const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=400&h=250&fit=crop&auto=format'
+
+const ALL_NEWS_FALLBACK = [
   {
     id: 1,
     title: 'Disney+ Announces Price Hike Amid Kimmel Controversy',
@@ -131,13 +127,22 @@ const ALL_NEWS = [
 const getSourceColor = (source) => {
   const colours = {
     'Radio Ink': '#dc2626',
-    InsideRadio: '#2563eb',
+    'Inside Radio': '#2563eb',
+    'InsideRadio': '#2563eb',
     'TV News Check': '#7c3aed',
+    'TV Newscheck': '#7c3aed',
     'Radio World': '#059669',
-    'Broadcasting & Cable': '#ea580c',
+    'Broadcasting & Cable': '#ea580c',
     'RBR-TVBR': '#4f46e5',
     'Inside Audio Marketing': '#db2777',
-    NewscastStudio: '#0891b2'
+    'NewscastStudio': '#0891b2',
+    'TV Technology': '#16a34a',
+    'KBOI 93.1FM & 670AM': '#f97316',
+    'KIDO Talk Radio': '#8b5cf6',
+    'Power 88.9': '#ec4899',
+    '630 KFXD': '#06b6d4',
+    'Q92.7 KQFC': '#84cc16',
+    '93.1 KTIK': '#eab308'
   }
   return colours[source] || '#1f2937'
 }
@@ -145,28 +150,90 @@ const getSourceColor = (source) => {
 // Shuffle the news array and return a subset.  This ensures
 // that each refresh surfaces different stories.
 function getRandomNews(count = 8) {
-  const shuffled = [...ALL_NEWS].sort(() => Math.random() - 0.5)
+  const shuffled = [...ALL_NEWS_FALLBACK].sort(() => Math.random() - 0.5)
   return shuffled.slice(0, Math.min(count, shuffled.length))
+}
+
+function formatDate(dateString) {
+  try {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('en-US', { 
+      month: 'long', 
+      day: 'numeric', 
+      year: 'numeric' 
+    })
+  } catch (e) {
+    return dateString
+  }
 }
 
 function App() {
   const [newsList, setNewsList] = useState([])
   const [lastUpdated, setLastUpdated] = useState(new Date())
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
-  // Load news on mount and set up a 6‑hour refresh interval
-  useEffect(() => {
-    const updateNews = () => {
+  const fetchNews = async () => {
+    try {
+      setLoading(true)
+      setError(null)
+      
+      const response = await fetch(`${API_URL}/api/news`)
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      
+      const data = await response.json()
+      
+      if (data.success && data.articles) {
+        const articlesWithIds = data.articles.map((article, index) => ({
+          ...article,
+          id: index + 1,
+          date: formatDate(article.published),
+          image: article.image || FALLBACK_IMAGE
+        }))
+        
+        setNewsList(articlesWithIds.slice(0, 50))
+        setLastUpdated(new Date())
+      } else {
+        throw new Error('Failed to fetch news from API')
+      }
+    } catch (err) {
+      console.error('Error fetching news:', err)
+      setError(err.message)
       setNewsList(getRandomNews(8))
-      setLastUpdated(new Date())
+    } finally {
+      setLoading(false)
     }
-    updateNews()
-    const interval = setInterval(updateNews, 6 * 60 * 60 * 1000)
+  }
+
+  useEffect(() => {
+    fetchNews()
+    
+    const interval = setInterval(fetchNews, 6 * 60 * 60 * 1000)
+    
     return () => clearInterval(interval)
   }, [])
 
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4">Broadcasting Industry News Aggregator</h1>
+      
+      {loading && newsList.length === 0 && (
+        <div className="text-center py-8">
+          <p className="text-gray-600">Loading news...</p>
+        </div>
+      )}
+      
+      {error && (
+        <div className="bg-yellow-50 border border-yellow-200 rounded p-4 mb-4">
+          <p className="text-yellow-800">
+            <strong>Note:</strong> Using fallback news. {error}
+          </p>
+        </div>
+      )}
+      
       <div className="grid md:grid-cols-2 gap-6">
         {newsList.map((item) => (
           <div key={item.id} className="rounded overflow-hidden shadow-lg bg-white">
