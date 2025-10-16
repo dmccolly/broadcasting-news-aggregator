@@ -52,6 +52,8 @@ async def update_news_cache():
 
 
 async def periodic_update_task():
+    await asyncio.sleep(5)
+    
     while True:
         try:
             if cache_manager.should_update():
@@ -67,17 +69,17 @@ async def periodic_update_task():
             await asyncio.sleep(600)
 
 
+background_tasks_started = False
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Starting up application...")
     
-    update_task = asyncio.create_task(update_news_cache())
     periodic_task = asyncio.create_task(periodic_update_task())
     
     yield
     
     logger.info("Shutting down application...")
-    update_task.cancel()
     periodic_task.cancel()
 
 
