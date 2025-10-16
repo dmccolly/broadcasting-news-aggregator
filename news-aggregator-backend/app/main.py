@@ -71,13 +71,14 @@ async def periodic_update_task():
 async def lifespan(app: FastAPI):
     logger.info("Starting up application...")
     
-    asyncio.create_task(update_news_cache())
-    
-    asyncio.create_task(periodic_update_task())
+    update_task = asyncio.create_task(update_news_cache())
+    periodic_task = asyncio.create_task(periodic_update_task())
     
     yield
     
     logger.info("Shutting down application...")
+    update_task.cancel()
+    periodic_task.cancel()
 
 
 app = FastAPI(lifespan=lifespan)
