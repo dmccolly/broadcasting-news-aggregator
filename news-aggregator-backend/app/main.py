@@ -160,6 +160,72 @@ async def get_local_news():
         }
 
 
+@app.get("/api/news/broadcasting")
+async def get_broadcasting_news():
+    """Get national broadcasting industry trade publication news only"""
+    try:
+        cached_results = await cache_manager.get_cached_results()
+        
+        if cached_results and cached_results.get('success'):
+            national_articles = cached_results.get('national_articles', [])
+            return {
+                'success': True,
+                'count': len(national_articles),
+                'articles': national_articles,
+                'last_updated': cached_results.get('last_updated')
+            }
+        
+        articles = await rss_aggregator.aggregate_all()
+        
+        return {
+            'success': True,
+            'count': len(articles),
+            'articles': articles
+        }
+    except Exception as e:
+        logger.error(f"Error fetching broadcasting news: {e}")
+        return {
+            'success': False,
+            'error': str(e),
+            'articles': []
+        }
+
+
+@app.get("/api/news/radio")
+async def get_radio_station_news():
+    """Get Boise radio station-specific content only (events, contests, podcasts, etc.)"""
+    try:
+        cached_results = await cache_manager.get_cached_results()
+        
+        if cached_results and cached_results.get('success'):
+            local_articles = cached_results.get('local_articles', [])
+            station_specific = [
+                article for article in local_articles 
+                if radio_scraper.is_station_specific_content(article.get('content_type', ''))
+            ]
+            return {
+                'success': True,
+                'count': len(station_specific),
+                'articles': station_specific,
+                'last_updated': cached_results.get('last_updated')
+            }
+        
+        articles = await radio_scraper.scrape_all_stations(station_specific_only=True)
+        
+        return {
+            'success': True,
+            'count': len(articles),
+            'articles': articles
+        }
+    except Exception as e:
+        logger.error(f"Error fetching radio station news: {e}")
+        return {
+            'success': False,
+            'error': str(e),
+            'articles': []
+        }
+
+
 @app.post("/api/news/refresh")
 async def refresh_news(background_tasks: BackgroundTasks):
     if cache_manager.is_updating:

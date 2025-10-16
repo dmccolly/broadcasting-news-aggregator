@@ -263,8 +263,17 @@ class BoiseRadioScraper:
             return 'podcast'
         elif any(word in text for word in ['interview', 'conversation', 'talk with']):
             return 'interview'
+        elif any(word in text for word in ['staff', 'team', 'host', 'dj', 'on-air', 'announcer']):
+            return 'staff'
+        elif any(word in text for word in ['about us', 'station', 'history', 'announcement']):
+            return 'station_info'
         else:
             return 'news'
+    
+    def is_station_specific_content(self, content_type: str) -> bool:
+        """Filter to only include content ABOUT the station, not general news they cover"""
+        station_specific_types = ['contest', 'event', 'podcast', 'interview', 'staff', 'station_info']
+        return content_type in station_specific_types
 
     def clean_text(self, text: str) -> str:
         if not text:
@@ -277,7 +286,7 @@ class BoiseRadioScraper:
         
         return text.strip()
 
-    async def scrape_all_stations(self) -> List[Dict]:
+    async def scrape_all_stations(self, station_specific_only: bool = False) -> List[Dict]:
         all_content = []
         
         for station_id, station_config in self.stations.items():
@@ -297,6 +306,9 @@ class BoiseRadioScraper:
                         for article in articles:
                             if not article.get('image'):
                                 article['image'] = station_config.get('logo')
+                        
+                        if station_specific_only:
+                            articles = [a for a in articles if self.is_station_specific_content(a.get('content_type', ''))]
                         
                         all_content.extend(articles)
                         

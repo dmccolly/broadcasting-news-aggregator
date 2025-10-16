@@ -25,7 +25,11 @@ class CacheManager:
                 time_since_update = datetime.now() - self.cache['last_updated']
                 if time_since_update < timedelta(hours=self.update_interval_hours):
                     logger.info(f"Returning cached results (age: {time_since_update})")
-                    return self.cache['merged_results']
+                    result = self.cache['merged_results'].copy()
+                    result['national_articles'] = self.cache['national_articles']
+                    result['local_articles'] = self.cache['local_articles']
+                    result['last_updated'] = self.cache['last_updated'].isoformat()
+                    return result
         return None
     
     async def set_cached_results(
