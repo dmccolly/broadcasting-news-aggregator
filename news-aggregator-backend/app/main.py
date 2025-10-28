@@ -62,7 +62,7 @@ async def periodic_update_task():
             else:
                 logger.info("Cache is still fresh, skipping update")
             
-            await asyncio.sleep(3600)
+            await asyncio.sleep(21600)  # 6 hours = 21600 seconds
             
         except Exception as e:
             logger.error(f"Error in periodic update task: {e}")
