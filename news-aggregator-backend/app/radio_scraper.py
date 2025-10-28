@@ -443,8 +443,9 @@ class BoiseRadioScraper:
                     try:
                         articles = self.scrape_with_requests(url, station_config['name'])
                         
-                        if not articles:
-                            articles = self.scrape_with_selenium(url, station_config['name'])
+                        # Selenium disabled for performance
+                        # if not articles:
+                        #     articles = self.scrape_with_selenium(url, station_config['name'])
                         
                         for article in articles:
                             if not article.get('image'):
