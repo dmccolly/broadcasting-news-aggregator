@@ -260,6 +260,11 @@ class BoiseRadioScraper:
         else:
             return 'entertainment'
 
+    def is_station_specific_content(self, content_type: str) -> bool:
+        """Filter to only include content ABOUT the station, not general news they cover"""
+        station_specific_types = ['contest', 'event', 'podcast', 'interview', 'staff', 'promotion', 'station_info']
+        return content_type in station_specific_types
+
     def clean_text(self, text: str) -> str:
         """Clean and normalize text"""
         if not text:
