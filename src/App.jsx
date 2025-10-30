@@ -106,7 +106,7 @@ const ALL_NEWS_FALLBACK = [
       'The Federal Communications Commission is considering new regulations on streaming services to ensure equal access for smaller broadcasters.',
     source: 'Radio World',
     date: 'October 2, 2025',
-    url: 'https://example.com/fcc-streaming-regulations',
+    url: 'https://www.radioworld.com/news-and-business/business-and-law/fcc-streaming-regulations',
     image:
       'https://images.unsplash.com/photo-1517705008128-361805f42e86?w=400&h=250&fit=crop&auto=format'
   },
@@ -117,7 +117,7 @@ const ALL_NEWS_FALLBACK = [
       'A group of local broadcasters in Idaho have launched a mental‑health awareness campaign aimed at supporting on‑air talent and listeners.',
     source: 'Radio Ink',
     date: 'October 1, 2025',
-    url: 'https://example.com/mental-health-initiative',
+    url: 'https://radioink.com/2025/10/01/broadcasters-mental-health-initiative/',
     image:
       'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=400&h=250&fit=crop&auto=format'
   }
