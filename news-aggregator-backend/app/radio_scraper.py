@@ -132,7 +132,7 @@ class BoiseRadioScraper:
 
     def get_article_hash(self, article: Dict) -> str:
         """Generate a hash for an article to detect duplicates"""
-        content = f"{article.get('title', '')}{article.get('link', '')}{article.get('source', '')}"
+        content = f"{article.get('title', '')}{article.get('url', '')}{article.get('source', '')}"
         return hashlib.md5(content.encode()).hexdigest()
 
     def is_political_content(self, text: str) -> bool:
@@ -217,7 +217,7 @@ class BoiseRadioScraper:
                     
                     article = {
                         'title': title,
-                        'link': link,
+                        'url': link,  # Changed from 'link' to 'url' to match frontend expectations
                         'description': description[:200],
                         'image': image,
                         'source': station_name,

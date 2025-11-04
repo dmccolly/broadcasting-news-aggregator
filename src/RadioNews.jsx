@@ -46,12 +46,17 @@ function RadioNews() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  const fetchNews = async () => {
+  const fetchNews = async (retryCount = 0) => {
+    const maxRetries = 3
     try {
       setLoading(true)
       setError(null)
       
-      const response = await fetch(`${API_URL}/api/news/radio`)
+      const response = await fetch(`${API_URL}/api/news/radio`, {
+        headers: {
+          'Cache-Control': 'no-cache'
+        }
+      })
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
@@ -74,10 +79,21 @@ function RadioNews() {
       }
     } catch (err) {
       console.error('Error fetching radio news:', err)
+      
+      // Retry logic with exponential backoff
+      if (retryCount < maxRetries) {
+        const delay = Math.pow(2, retryCount) * 1000 // 1s, 2s, 4s
+        console.log(`Retrying in ${delay}ms... (attempt ${retryCount + 1}/${maxRetries})`)
+        setTimeout(() => fetchNews(retryCount + 1), delay)
+        return
+      }
+      
       setError(err.message)
       setNewsList([])
     } finally {
-      setLoading(false)
+      if (retryCount >= maxRetries || newsList.length > 0) {
+        setLoading(false)
+      }
     }
   }
 
@@ -106,6 +122,12 @@ function RadioNews() {
           <p className="text-red-800">
             <strong>Error:</strong> {error}
           </p>
+             <button
+               onClick={() => fetchNews(0)}
+               className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded transition-colors"
+             >
+               Try Again
+             </button>
         </div>
       )}
       

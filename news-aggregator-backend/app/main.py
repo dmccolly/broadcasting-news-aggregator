@@ -52,7 +52,9 @@ async def update_news_cache():
 
 
 async def periodic_update_task():
-    await asyncio.sleep(5)
+    # Initial update on startup
+    logger.info("Performing initial cache population on startup...")
+    await update_news_cache()
     
     while True:
         try:
