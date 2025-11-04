@@ -73,9 +73,9 @@ class BoiseRadioScraper:
             },
             'kissfm': {
                 'name': '103.5 Kiss FM',
-                'homepage': 'https://1035kissfm.com',
+                'homepage': 'https://1035kissfmboise.com',
                 'subpages': ['/contests/', '/events/'],
-                'logo': 'https://1035kissfm.com/wp-content/uploads/2021/01/kissfm-logo.png',
+                'logo': 'https://1035kissfmboise.com/wp-content/uploads/2021/01/kissfm-logo.png',
             },
             'river': {
                 'name': '94.9 The River',
@@ -89,12 +89,13 @@ class BoiseRadioScraper:
                 'subpages': ['/shows/', '/events/'],
                 'logo': 'https://www.q927.com/wp-content/uploads/2021/01/q927-logo.png',
             },
-            'hankfm': {
-                'name': 'Hank FM',
-                'homepage': 'https://hankfm.com',
-                'subpages': ['/contests/', '/events/'],
-                'logo': 'https://hankfm.com/wp-content/uploads/2021/01/hank-logo.png',
-            },
+            
+               'hankfm': {
+                   'name': '107.1 Hank FM',
+                   'homepage': 'https://www.crankthehankboise.com',
+                   'subpages': ['/contests/', '/events/', '/category/news/'],
+                   'logo': 'https://www.crankthehankboise.com/wp-content/uploads/2021/01/hank-logo.png',
+               },
             'ktik': {
                 'name': '93.1 KTIK',
                 'homepage': 'https://931ktik.com',
@@ -109,13 +110,16 @@ class BoiseRadioScraper:
             },
         }
         
-        # 5 different fallback images for variety
+        # 8 different fallback images for variety
         self.fallback_images = [
             'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800',  # Radio microphone
             'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800',  # Music concert
             'https://images.unsplash.com/photo-1487180144351-b8472da7d491?w=800',  # DJ equipment
             'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800',  # Headphones
             'https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=800',  # Radio tower
+            'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800',  # Music studio
+            'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800',  # Concert crowd
+            'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800',  # Vinyl records
         ]
         
         # Political keywords to filter out
