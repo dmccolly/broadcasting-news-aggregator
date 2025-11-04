@@ -69,7 +69,8 @@ function RadioNews() {
           ...article,
           id: index + 1,
           date: formatDate(article.published),
-          image: article.image || FALLBACK_IMAGE
+          image: article.image || FALLBACK_IMAGE,
+           url: article.url || article.link  // Fallback to 'link' if 'url' doesn't exist
         }))
         
         setNewsList(articlesWithIds)
